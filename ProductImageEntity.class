@@ -1,0 +1,28 @@
+package com.ferretoca.inventario.domain;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "PRODUCTO_IMAGENES_DESCRIPCION")
+public class ProductImageEntity {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "codigo_producto", nullable = false)
+  private ProductEntity producto;
+
+  @Lob
+  @Column(name = "imagen")
+  private byte[] imagen;
+
+  public Long getId() { return id; }
+  public ProductEntity getProducto() { return producto; }
+  public void setProducto(ProductEntity producto) { this.producto = producto; }
+
+  public byte[] getImagen() { return imagen; }
+  public void setImagen(byte[] imagen) { this.imagen = imagen; }
+}
+

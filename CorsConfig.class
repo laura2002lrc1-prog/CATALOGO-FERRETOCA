@@ -1,0 +1,28 @@
+package com.ferretoca.inventario.web;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+  @Value("${ferretoca.admin.usuario}")
+  private String adminUsuario;
+
+  @Value("${ferretoca.admin.contrasena}")
+  private String adminContrasena;
+
+  @PostMapping("/login")
+  public ResponseEntity<?> login(@RequestBody Map<String, String> body) {
+    String usuario = body.get("usuario");
+    String contrasena = body.get("contrasena");
+
+    boolean ok = adminUsuario.equals(usuario) && adminContrasena.equals(contrasena);
+    return ResponseEntity.ok(Map.of("ok", ok));
+  }
+}
+
